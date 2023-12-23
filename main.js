@@ -650,4 +650,44 @@
 
 // console.log(bubbleSort(array))
 
+// for (var i = 0; i < 10; i++) { 
+//     setTimeout(function() { 
+//         console.log(i); 
+//     }, 1000); 
+// }
 
+// new Promise((resolve, reject) => reject())
+//         .catch(() => 1)
+//         .then(() => { throw new Error(3) })
+//         .catch(() => 4)
+//         .then((a) => console.log(a))
+
+// let req = {
+//     username: "exampleUser",
+//     password: "examplePassword"
+//   };
+// const { username, password } = req;
+// console.log(username, password)
+
+// console.log([].reduce(() => { console.log('test'); return 2 }, 0))
+
+// function createVal(){
+//     return Math.random()
+//   }
+  
+// function fun(val =  createVal()) {}
+  
+// console.log(fun())
+//  console.log( fun(5))
+
+// function a() { console.log(this) }
+// a.bind(1)()
+
+try {
+    require('fs').readdir('./', (err, res) => {
+      throw new Error('test');
+    });
+  } catch(e) {
+    console.log('error')
+  }
+  

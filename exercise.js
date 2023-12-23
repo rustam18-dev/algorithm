@@ -43,20 +43,35 @@ class UserDatabase {
     return console.log('Данные успешна обновлены!')
   }
   list_all() {
+    this.bubbleSort()
+    
      if (!this.users) {
       return console.log('В хранилище данных пусто!')
      }
 
      return console.log(this.users)
   }
+
+  bubbleSort() {
+    for(let i = 0; i < this.users.length; i++) {
+      for(let j = 0; j < this.users.length - i - 1; j++) {
+        if(this.users[j].username > this.users[j + 1].username) {
+          let temp = this.users[j].username
+          this.users[j].username = this.users[j + 1].username
+          this.users[j + 1].username = temp
+        }
+      }
+    }
+    return this.users
+  }
 }
 const userDatabase = new UserDatabase();
-const newUser = new User('rustam19', 'рустам', 'rustam.radzabov8410@gmail.com');
-const oldUser = new User('nasim', 'насим', 'nasimov.nasim@gmail.com');
+const newUser = new User('b_rustam19', 'рустам', 'rustam.radzabov8410@gmail.com');
+const oldUser = new User('a_nasim', 'насим', 'nasimov.nasim@gmail.com');
 
 userDatabase.insert(newUser);
 userDatabase.insert(oldUser);
 
 
-userDatabase.update('rustam19', 'РУСТАМ', 'radzabov.rustam8410@gmail.com')
+// userDatabase.update('rustam19', 'РУСТАМ', 'radzabov.rustam8410@gmail.com')
 console.log(userDatabase.list_all())
