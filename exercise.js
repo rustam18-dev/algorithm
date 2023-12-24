@@ -44,7 +44,7 @@ class UserDatabase {
   }
   list_all() {
     this.bubbleSort()
-    
+
      if (!this.users) {
       return console.log('В хранилище данных пусто!')
      }
@@ -65,13 +65,103 @@ class UserDatabase {
     return this.users
   }
 }
-const userDatabase = new UserDatabase();
-const newUser = new User('b_rustam19', 'рустам', 'rustam.radzabov8410@gmail.com');
-const oldUser = new User('a_nasim', 'насим', 'nasimov.nasim@gmail.com');
+// const userDatabase = new UserDatabase();
+// const newUser = new User('b_rustam19', 'рустам', 'rustam.radzabov8410@gmail.com');
+// const oldUser = new User('a_nasim', 'насим', 'nasimov.nasim@gmail.com');
 
-userDatabase.insert(newUser);
-userDatabase.insert(oldUser);
+// userDatabase.insert(newUser);
+// userDatabase.insert(oldUser);
 
 
 // userDatabase.update('rustam19', 'РУСТАМ', 'radzabov.rustam8410@gmail.com')
-console.log(userDatabase.list_all())
+// console.log(userDatabase.list_all())
+
+
+
+class BinarySearchTree {
+  constructor(key, value) {
+    this.key = key;
+    this.value = value;
+    this.left = null;
+    this.right = null;
+    this.parent = null;
+  }
+}
+
+function insert(node, user) {
+  if (node === null) {
+    node = new BinarySearchTree(user.username, node);
+  } else if (node.key > user.username) {
+    node.left = insert(node.left, user);
+    node.left.parent = node;
+  } else if (node.key < user.username) {
+    node.right = insert(node.right, user);
+    node.right.parent = node;
+  }
+
+  return node;
+}
+
+function displayKeys(node, space = '\t', level = 0) {
+  if (node === null) {
+    console.log(space.repeat(level) + '∅');
+    return;
+  }
+  if (node.left === null && node.right === null) {
+    console.log(space.repeat(level) + node.key);
+    return;
+  }
+
+  displayKeys(node.right, space, level + 1);
+  console.log(space.repeat(level) + node.key);
+  displayKeys(node.left, space, level + 1);
+}
+
+let root = null;
+
+let user = new User('hasan', '123', '123123');
+let aziza = new User('aziza', '123', '12330');
+let anisa = new User('anisa', '123', '12330');
+let mubin = new User('mubin', '123', '12330');
+let jonibek = new User('jonibek', '123', '12330');
+let zarina = new User('zarina', '123', '12330');
+let users = [user, aziza, anisa, mubin, jonibek, zarina];
+
+for (let user of users) {
+  root = insert(root, user);
+}
+
+function inorder(node) {
+  if (node !== null) {
+    inorder(node.left);
+    console.log(node.key);
+    inorder(node.right);
+  }
+}
+
+function search(root, target) {
+  if (root === null || root.key === target) {
+    return root;
+  }
+
+  if (root.key > target) {
+    return search(root.left, target);
+  }
+
+  return search(root.right, target);
+}
+
+let result = search(root, 'jonibek');
+
+if (result !== null) {
+  console.log(`Найден пользователь: ${result.key}`);
+} else {
+  console.log('Пользователь не найден');
+}
+
+function update() {
+  //
+}
+
+inorder(root)
+displayKeys(root);
