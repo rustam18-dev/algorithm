@@ -119,13 +119,14 @@ function displayKeys(node, space = '\t', level = 0) {
 
 let root = null;
 
-let user = new User('hasan', '123', '123123');
+let hasan = new User('hasan', '123', '123123');
 let aziza = new User('aziza', '123', '12330');
 let anisa = new User('anisa', '123', '12330');
 let mubin = new User('mubin', '123', '12330');
+let behruz = new User('behruz', '123', '12330');
 let jonibek = new User('jonibek', '123', '12330');
 let zarina = new User('zarina', '123', '12330');
-let users = [user, aziza, anisa, mubin, jonibek, zarina];
+let users = [aziza, anisa, behruz, hasan, mubin, jonibek, zarina];
 
 for (let user of users) {
   root = insert(root, user);
@@ -159,9 +160,80 @@ if (result !== null) {
   console.log('Пользователь не найден');
 }
 
-function update() {
-  //
+function update(node, key, user) {
+  let target = search(node, key)
+  if (target !== null) {
+    target.name = user.name
+    target.email = user.email
+  }
+
+  console.log(target.name, target.email)
 }
 
-inorder(root)
+
+function isBalanced(node) {
+  if (node === null) {
+    return [true, 0]
+  }
+
+  let [balancedLeft, heightLeft] = isBalanced(node.left)
+  let [balancedRight, heightRight] = isBalanced(node.left)
+
+  let balanced = balancedLeft && balancedRight && (Math.abs(heightLeft - heightRight) <= 1)
+
+  let height = 1 + Math.max(heightLeft, heightRight)
+
+  console.log([balanced, height])
+  return [balanced, height]
+
+}
+
+function makeBalancedBST(data, low = 0, high = null, parent = null) {
+  if (high === null) {
+    high = data.length - 1
+  }
+
+  if (low > high) {
+    return null
+  }
+
+  let mid = Math.floor((low + high) / 2)
+
+  let key = data[mid].key
+  let value = data[mid].value
+
+  let root = new BinarySearchTree(key, value)
+  root.parent = parent
+  root.left = makeBalancedBST(data, low, mid - 1, root)
+  root.right = makeBalancedBST(data, mid + 1, high, root)
+
+  return root
+}
+
+// def list_all(node): # list all elements
+// if node is None:
+//   return []
+// left = list_all(node.left)
+// right = list_all(node.right)
+// return (left + [node] + right)
+
+function list_all(node) {
+  if (node === null) {
+    return []
+  }
+
+  let left = list_all(node.left)
+  let right = list_all(node.right)
+  return [left + [node] + right]
+}
+
+let users1 = list_all(root)
+let new_hasan = new User('hasan', 'hasan hasanov', 'email')
+update(root, "hasan", new_hasan)
+// inorder(root)
 displayKeys(root);
+
+// isBalanced(root)
+makeBalancedBST(root)
+
+displayKeys(users1);
