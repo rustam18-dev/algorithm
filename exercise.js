@@ -103,7 +103,7 @@ function insert(node, user) {
 }
 
 function displayKeys(node, space = '\t', level = 0) {
-  if (node === null) {
+  if (node === null) {  2
     console.log(space.repeat(level) + '∅');
     return;
   }

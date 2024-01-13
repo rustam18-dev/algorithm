@@ -326,26 +326,26 @@
 //   array.push(i)
 // }
 
-// const binarySearch = item => {
-//   const recursion = (low, high) => {
-//     if (low <= high) {
-//       let mid = Math.floor((low + high) / 2)
-//       let guess = array[mid]
+const binarySearch = item => {
+  const recursion = (low, high) => {
+    if (low <= high) {
+      let mid = Math.floor((low + high) / 2)
+      let guess = array[mid]
 
-//       if (guess === item)  return mid
+      if (guess === item)  return mid
 
-//       if (guess > item) {
-//         return recursion(low, mid - 1)
-//       } else {
-//         return recursion(mid + 1, high)
-//       }
-//     }
-//     return -1
-//   }
-//    return recursion(0, array.length - 1);
-// }
+      if (guess > item) {
+        return recursion(low, mid - 1)
+      } else {
+        return recursion(mid + 1, high)
+      }
+    }
+    return -1
+  }
+   return recursion(0, array.length - 1);
+}
 
-// console.log(binarySearch(28))
+console.log(binarySearch(28))
 
 // const array = [1, 2, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 6, 7, 8, 9, 10];
 
