@@ -9,14 +9,14 @@ let graph = {}
 // graph['peggy'] = []
 // graph['tommy'] = []
 // graph['jonny'] = []
-graph['G'] = ['A']
-graph['A'] = ['B', 'C', 'G']
-graph['B'] = ['A', 'E', 'D']
-graph['C'] = ['A', 'F']
-graph['D'] = ['B', 'F']
-graph['E'] = ['B', 'F']
-graph['F'] = ['E', 'C', 'D']
-
+graph['D'] = ['B', 'F', 'G']
+graph['B'] = ['A', 'D', 'E']
+graph['C'] = ['A', 'F', 'H']
+graph['A'] = ['C', 'B']
+graph['E'] = ['B', 'G']
+graph['G'] = ['E', 'D', 'F', 'H']
+graph['H'] = ['G', 'C']
+graph['F'] = ['D', 'G', 'C']
 
 function person_is_seller(name) {
   return name === 'D'
@@ -25,6 +25,7 @@ function person_is_seller(name) {
 function search(name) {
   const search_queue = []
   search_queue.push(...graph[name])
+  console.log(search_queue)
   const searched = []
   while (search_queue.length > 0) {
     const person = search_queue.shift()
@@ -34,6 +35,7 @@ function search(name) {
         return true
       } else {
         search_queue.push(...graph[person])
+        console.log(search_queue)
         searched.push(person)
       }
     }
